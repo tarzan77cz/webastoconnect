@@ -132,7 +132,9 @@ async def _async_update_device_registry_name(
 ) -> None:
     """Update the device registry name."""
     device_registry = dr.async_get(hass)
-    device_entry = device_registry.async_get_device({(DOMAIN, str(device_id))})
+    device_entry = device_registry.async_get_device_by_identifier(
+        DOMAIN, str(device_id)
+    )
     if device_entry is None or device_entry.name_by_user is not None:
         return
     if device_entry.name == device_name:
