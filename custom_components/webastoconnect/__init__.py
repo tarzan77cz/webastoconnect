@@ -322,6 +322,8 @@ async def _async_ensure_lovelace_card_resource(
         return
 
     resources = lovelace_data.resources
+    # async_items() is empty until the storage collection has been loaded
+    await resources.async_get_info()
     for resource in resources.async_items() or []:
         existing_url = resource.get(CONF_URL) or ""
         existing_base_url = existing_url.split("?", 1)[0]
